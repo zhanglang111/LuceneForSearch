@@ -52,10 +52,10 @@ public class SearchController {
 
     @RequestMapping("/high")
     public String high(Model model, String SearchText) throws Exception{
-        List<String> list = searchService.WildcardSearch(SearchText);
-        System.out.println(list);
-        model.addAttribute("list",list);
-        return "out";
+        List<OutputTest> outputTests = searchService.WildcardSearch(SearchText);
+        System.out.println(outputTests);
+        model.addAttribute("outputTests",outputTests);
+        return "result";
     }
 
 

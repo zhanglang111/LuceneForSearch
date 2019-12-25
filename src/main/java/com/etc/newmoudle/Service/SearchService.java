@@ -14,7 +14,7 @@ public interface SearchService {
 
     public void InspecificDomainSearch();
 
-    public List<String> WildcardSearch(String SearchText) throws Exception;
+    public List<OutputTest> WildcardSearch(String SearchText) throws Exception;
 
 
     public List<OutputTest> WildcardSearch2(String SearchText) throws Exception;
