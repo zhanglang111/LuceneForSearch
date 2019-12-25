@@ -21,4 +21,7 @@ public interface SearchService {
 
 
     public List<OutputTest> BooleanSearch(String[] strings) throws Exception;
+
+    public List<OutputTest> testOperator(String strings) throws Exception;
+
 }

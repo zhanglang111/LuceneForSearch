@@ -104,4 +104,44 @@ public class TopDocsUtil {
 //        reader.close();
         return outputTests;
     }
+
+
+    public List<OutputTest> SearchHelper(IndexReader reader, IndexSearcher indexSearcher, Query query) throws Exception {
+
+        Analyzer analyzer = new StandardAnalyzer();
+
+        TopDocs topDocs = indexSearcher.search(query, 4);
+
+        SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<b><font color=red>","</font></b>");
+
+        QueryScorer scorer = new QueryScorer(query);
+        Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
+        Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
+
+        highlighter.setTextFragmenter(fragmenter);
+
+        ScoreDoc scoreDocs[] = topDocs.scoreDocs;
+        //返回数据
+
+        List<OutputTest> outputTests = new ArrayList<>();
+
+        for (ScoreDoc scoreDoc : scoreDocs) {
+            Document doc = indexSearcher.doc(scoreDoc.doc);
+            String content = doc.get("fileContent");
+            if (content!=null){
+                TokenStream tokenStream = analyzer.tokenStream("fileContent", new StringReader(content));
+//                String highLight = highlighter.getBestFragment(analyzer,"fileContent", content);
+//                list.add(highLight);
+                String highlighterBestFragment = highlighter.getBestFragment(tokenStream, content);
+
+                OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),highlighterBestFragment);
+                outputTests.add(outputTest);
+            }
+        }
+        reader.close();
+        return outputTests;
+    }
+
+
+
 }

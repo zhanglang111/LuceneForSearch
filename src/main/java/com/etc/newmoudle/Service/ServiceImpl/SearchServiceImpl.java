@@ -98,62 +98,49 @@ public class SearchServiceImpl implements SearchService {
         return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
     }
 
-    @Test
-    public void testMultiFiledQueryParser()throws Exception {
+//    @Test
+//    public void testMultiFiledQueryParser()throws Exception {
+//
+//        IndexSearcher indexSearcher = myCommandLineRunner.indexSearcher;
+//
+////可以指定默认搜索的域是多个
+//
+//        String[] fields = {"fileName","fileContent"};
+//
+////创建一个MulitFiledQueryParser对象
+//
+//        MultiFieldQueryParser queryParser = new MultiFieldQueryParser(fields,new StandardAnalyzer());
+//
+//        Query query = queryParser.parse("test");
+//
+//        System.out.println(query);
+//
+////执行查询
+//
+//        System.out.println("将要搜索"+query);
+//        TopDocs topDocs = indexSearcher.search(query, 10);
+//
+//        ScoreDoc scoreDocs[] = topDocs.scoreDocs;
+//
+//        ArrayList<OutputTest> outputTests = new ArrayList<>();
+//        for (ScoreDoc scoreDoc : scoreDocs) {
+//            Document doc = indexSearcher.doc(scoreDoc.doc);
+//            OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),doc.get("fileContent"));
+//            outputTests.add(outputTest);
+//        }
+//        myCommandLineRunner.reader.close();
+//        System.out.println(outputTests);
+//    }
 
-        IndexSearcher indexSearcher = myCommandLineRunner.indexSearcher;
 
-//可以指定默认搜索的域是多个
-
-        String[] fields = {"fileName","fileContent"};
-
-//创建一个MulitFiledQueryParser对象
-
-        MultiFieldQueryParser queryParser = new MultiFieldQueryParser(fields,new StandardAnalyzer());
-
-        Query query = queryParser.parse("test");
-
-        System.out.println(query);
-
-//执行查询
-
-        System.out.println("将要搜索"+query);
-        TopDocs topDocs = indexSearcher.search(query, 10);
-
-        ScoreDoc scoreDocs[] = topDocs.scoreDocs;
-
-        ArrayList<OutputTest> outputTests = new ArrayList<>();
-        for (ScoreDoc scoreDoc : scoreDocs) {
-            Document doc = indexSearcher.doc(scoreDoc.doc);
-            OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),doc.get("fileContent"));
-            outputTests.add(outputTest);
-        }
-        myCommandLineRunner.reader.close();
-        System.out.println(outputTests);
-    }
-
-
-
-    @Test
-    public void testOperator() throws Exception {
-
-        TopDocsUtil topDocsUtil = new TopDocsUtil();
-
-        String indexPath = "D:/lucene_test/index1";
-        Directory directory = FSDirectory.open(Paths.get(indexPath));
-        IndexReader reader = DirectoryReader.open(directory);
-        IndexSearcher indexSearcher = new IndexSearcher(reader);
-
-        String searchWords = "fileName:test* AND fileContent:hello";
+    public List<OutputTest> testOperator(String SearchText) throws Exception {
 
         Analyzer analyzer = new StandardAnalyzer();
         Query query;
         QueryParser parser = new QueryParser("fileContent", analyzer);
-        query = parser.parse(searchWords);
+        query = parser.parse(SearchText);
 
-        List<OutputTest> list = topDocsUtil.higtlight(reader,indexSearcher,query);
-        System.out.println(list);
+        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
 
-        reader.close();
     }
 }

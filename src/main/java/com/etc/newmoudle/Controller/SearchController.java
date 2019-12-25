@@ -29,28 +29,34 @@ public class SearchController {
         //去掉左右两端空格
         String subStr =  SearchText.trim();
 
-        /**
-         * 后面可以统一看能不能直接任意搜索！
-         */
+//        /**
+//         * 后面可以统一看能不能直接任意搜索！
+//         */
+//
+//        if (subStr.contains(" ")){
+//            /**
+//             * 多词联合搜索
+//             */
+//            String[] strings = subStr.split(" ");
+//            outputTests = searchService.BooleanSearch(strings);
+//            System.out.println(outputTests);
+//        }else if(subStr.contains("*")||subStr.contains("?")){
+//            /**
+//             * 通配符搜索
+//             */
+//            outputTests = searchService.WildcardSearch2(subStr);
+//        }else{
+//            /**
+//             * 普通搜索
+//             */
+//            outputTests = searchService.CommonSearch(subStr);
+//        }
+//        model.addAttribute("outputTests",outputTests);
+//        return "result";
 
-        if (subStr.contains(" ")){
-            /**
-             * 多词联合搜索
-             */
-            String[] strings = subStr.split(" ");
-            outputTests = searchService.BooleanSearch(strings);
-            System.out.println(outputTests);
-        }else if(subStr.contains("*")||subStr.contains("?")){
-            /**
-             * 通配符搜索
-             */
-            outputTests = searchService.WildcardSearch2(subStr);
-        }else{
-            /**
-             * 普通搜索
-             */
-            outputTests = searchService.CommonSearch(subStr);
-        }
+        //现在是直接搜索
+
+        outputTests = searchService.testOperator(subStr);
         model.addAttribute("outputTests",outputTests);
         return "result";
     }
