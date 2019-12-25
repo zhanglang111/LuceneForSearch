@@ -9,14 +9,21 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.highlight.*;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,40 +90,70 @@ public class SearchServiceImpl implements SearchService {
         long startTime = System.currentTimeMillis();
         //开始查询，查询前10条数据，将记录保存在docs中
 
-        TopDocs topDocs = myCommandLineRunner.indexSearcher.search(query, 4);
 
         long endTime = System.currentTimeMillis();
         long costTime = endTime - startTime;
         System.out.println("查询时间消耗："+costTime);
 
-        SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<b><font color=red>","</font></b>");
+        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
+    }
 
-        QueryScorer scorer = new QueryScorer(query);
-        //根据这个得分计算出一个片段
-        Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
-        //将这个片段中的关键字用上面初始化好的高亮格式高亮
-        Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
+    @Test
+    public void testMultiFiledQueryParser()throws Exception {
 
-        highlighter.setTextFragmenter(fragmenter);
+        IndexSearcher indexSearcher = myCommandLineRunner.indexSearcher;
+
+//可以指定默认搜索的域是多个
+
+        String[] fields = {"fileName","fileContent"};
+
+//创建一个MulitFiledQueryParser对象
+
+        MultiFieldQueryParser queryParser = new MultiFieldQueryParser(fields,new StandardAnalyzer());
+
+        Query query = queryParser.parse("test");
+
+        System.out.println(query);
+
+//执行查询
+
+        System.out.println("将要搜索"+query);
+        TopDocs topDocs = indexSearcher.search(query, 10);
 
         ScoreDoc scoreDocs[] = topDocs.scoreDocs;
-        //返回数据
 
-        List<OutputTest> outputTests = new ArrayList<>();
+        ArrayList<OutputTest> outputTests = new ArrayList<>();
         for (ScoreDoc scoreDoc : scoreDocs) {
-            Document doc = myCommandLineRunner.indexSearcher.doc(scoreDoc.doc);
-            String content = doc.get("fileContent");
-            if (content!=null){
-                TokenStream tokenStream = analyzer.tokenStream("fileContent", new StringReader(content));
-//                String highLight = highlighter.getBestFragment(analyzer,"fileContent", content);
-//                list.add(highLight);
-                String highlighterBestFragment = highlighter.getBestFragment(tokenStream, content);
-
-                OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),highlighterBestFragment);
-                outputTests.add(outputTest);
-            }
+            Document doc = indexSearcher.doc(scoreDoc.doc);
+            OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),doc.get("fileContent"));
+            outputTests.add(outputTest);
         }
         myCommandLineRunner.reader.close();
-        return outputTests;
+        System.out.println(outputTests);
+    }
+
+
+
+    @Test
+    public void testOperator() throws Exception {
+
+        TopDocsUtil topDocsUtil = new TopDocsUtil();
+
+        String indexPath = "D:/lucene_test/index1";
+        Directory directory = FSDirectory.open(Paths.get(indexPath));
+        IndexReader reader = DirectoryReader.open(directory);
+        IndexSearcher indexSearcher = new IndexSearcher(reader);
+
+        String searchWords = "fileName:test* AND fileContent:hello";
+
+        Analyzer analyzer = new StandardAnalyzer();
+        Query query;
+        QueryParser parser = new QueryParser("fileContent", analyzer);
+        query = parser.parse(searchWords);
+
+        List<OutputTest> list = topDocsUtil.higtlight(reader,indexSearcher,query);
+        System.out.println(list);
+
+        reader.close();
     }
 }

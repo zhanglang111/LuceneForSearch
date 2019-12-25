@@ -35,7 +35,7 @@ public class TopDocsUtil {
             OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),doc.get("fileContent"));
             outputTests.add(outputTest);
         }
-        reader.close();
+//        reader.close();
         return outputTests;
     }
 //
@@ -78,9 +78,7 @@ public class TopDocsUtil {
         SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<b><font color=red>","</font></b>");
 
         QueryScorer scorer = new QueryScorer(query);
-        //根据这个得分计算出一个片段
         Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
-        //将这个片段中的关键字用上面初始化好的高亮格式高亮
         Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
 
         highlighter.setTextFragmenter(fragmenter);
@@ -103,7 +101,7 @@ public class TopDocsUtil {
                 outputTests.add(outputTest);
             }
         }
-        reader.close();
+//        reader.close();
         return outputTests;
     }
 }
