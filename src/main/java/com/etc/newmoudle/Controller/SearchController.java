@@ -28,6 +28,11 @@ public class SearchController {
         String SearchText = request.getParameter("searchText");
         //去掉左右两端空格
         String subStr =  SearchText.trim();
+
+        /**
+         * 后面可以统一看能不能直接任意搜索！
+         */
+
         if (subStr.contains(" ")){
             /**
              * 多词联合搜索

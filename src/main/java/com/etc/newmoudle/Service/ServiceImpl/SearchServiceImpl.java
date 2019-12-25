@@ -37,7 +37,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<OutputTest> CommonSearch(String SearchText) throws Exception {
         Query query=new TermQuery(new Term("fileContent",SearchText));
-        return topDocsUtil.getList(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
+        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SearchServiceImpl implements SearchService {
             }
         }
         BooleanQuery booleanQuery = builder.build();
-        return topDocsUtil.getList(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,booleanQuery);
+        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,booleanQuery);
     }
 
 
