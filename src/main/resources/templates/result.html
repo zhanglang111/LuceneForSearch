@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <h1>搜索结果</h1>
+        <div th:each="outputTest : ${outputTests}">
+            <div th:switch="${outputTest.getFileContent()!=null}">
+                <div th:case="true">
+                    <div th:utext="${outputTest.getFilePath()}"></div>
+                    <div th:utext="${outputTest.getFileScore()}"></div>
+                    <div th:utext="${outputTest.getFileName()}"></div>
+                    <div th:utext="${outputTest.getFileContent()}"></div>
+                </div>
+                <div th:case="false">
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
