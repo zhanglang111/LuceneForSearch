@@ -29,7 +29,6 @@ import java.util.List;
 @Service
 public class SearchServiceImpl implements SearchService {
 
-
     @Autowired
     ConstantInPro constantInPro;
 
@@ -118,8 +117,10 @@ public class SearchServiceImpl implements SearchService {
             String content = document.get("fileContent");
             if (content!=null){
                 TokenStream tokenStream = analyzer.tokenStream("fileContent", new StringReader(content));
-                String highLight = highlighter.getBestFragment(tokenStream, content);
-                list.add(highLight);
+//                String highLight = highlighter.getBestFragment(analyzer,"fileContent", content);
+//                list.add(highLight);
+                String summary = highlighter.getBestFragment(tokenStream, content);
+                list.add(summary);
             }
         }
         reader.close();

@@ -50,6 +50,15 @@ public class SearchController {
         return "result";
     }
 
+    @RequestMapping("/high")
+    public String high(Model model, String SearchText) throws Exception{
+        List<String> list = searchService.WildcardSearch(SearchText);
+        System.out.println(list);
+        model.addAttribute("list",list);
+        return "out";
+    }
+
+
     @ResponseBody
     @RequestMapping("/InspecificDomainSearch.do")
     public ResponseResult InspecificDomainSearch(HttpServletRequest request, HttpServletResponse response) {
