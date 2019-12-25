@@ -41,106 +41,77 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     TopDocsUtil topDocsUtil;
 
-    @Override
-    public List<OutputTest> CommonSearch(String SearchText) throws Exception {
-        Query query=new TermQuery(new Term("fileContent",SearchText));
-        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
-    }
-
-    @Override
-    public List<OutputTest> BooleanSearch(String[] strings) throws Exception {
-
-        //写一个循环
-        BooleanQuery.Builder builder = new BooleanQuery.Builder();
-        for (int i = 0; i < strings.length; i++) {
-
-            String QueryTest = strings[i].substring(1);
-            TermQuery termQuery = new TermQuery(new Term("fileContent",QueryTest));
-            if (strings[i].startsWith("+")) {
-                builder.add(termQuery, BooleanClause.Occur.MUST);
-            } else if (strings[i].startsWith("-")) {
-                builder.add(termQuery, BooleanClause.Occur.MUST_NOT);
-            }
-        }
-        BooleanQuery booleanQuery = builder.build();
-        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,booleanQuery);
-    }
-
-
-    @Override
-    public void InspecificDomainSearch() {
-
-    }
-
-    @Override
-    public List<OutputTest> WildcardSearch2(String SearchText) throws Exception {
-        WildcardQuery wildcardQuery = new WildcardQuery(new Term("fileContent", SearchText));
-        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,wildcardQuery);
-//        return topDocsUtil.getList(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,wildcardQuery);
-    }
-
-    //高亮显示那部分
-    @Override
-    public List<OutputTest> WildcardSearch(String SearchText) throws Exception{
-
-        Analyzer analyzer = new StandardAnalyzer();
-        QueryParser parser = new QueryParser("fileContent", analyzer);
-        Query query = parser.parse(SearchText);
-
-        long startTime = System.currentTimeMillis();
-        //开始查询，查询前10条数据，将记录保存在docs中
-
-
-        long endTime = System.currentTimeMillis();
-        long costTime = endTime - startTime;
-        System.out.println("查询时间消耗："+costTime);
-
-        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
-    }
-
-//    @Test
-//    public void testMultiFiledQueryParser()throws Exception {
+//    @Override
+//    public List<OutputTest> CommonSearch(String SearchText) throws Exception {
+//        Query query=new TermQuery(new Term("fileContent",SearchText));
+//        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
+//    }
 //
-//        IndexSearcher indexSearcher = myCommandLineRunner.indexSearcher;
+//    @Override
+//    public List<OutputTest> BooleanSearch(String[] strings) throws Exception {
 //
-////可以指定默认搜索的域是多个
+//        //写一个循环
+//        BooleanQuery.Builder builder = new BooleanQuery.Builder();
+//        for (int i = 0; i < strings.length; i++) {
 //
-//        String[] fields = {"fileName","fileContent"};
-//
-////创建一个MulitFiledQueryParser对象
-//
-//        MultiFieldQueryParser queryParser = new MultiFieldQueryParser(fields,new StandardAnalyzer());
-//
-//        Query query = queryParser.parse("test");
-//
-//        System.out.println(query);
-//
-////执行查询
-//
-//        System.out.println("将要搜索"+query);
-//        TopDocs topDocs = indexSearcher.search(query, 10);
-//
-//        ScoreDoc scoreDocs[] = topDocs.scoreDocs;
-//
-//        ArrayList<OutputTest> outputTests = new ArrayList<>();
-//        for (ScoreDoc scoreDoc : scoreDocs) {
-//            Document doc = indexSearcher.doc(scoreDoc.doc);
-//            OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),doc.get("fileContent"));
-//            outputTests.add(outputTest);
+//            String QueryTest = strings[i].substring(1);
+//            TermQuery termQuery = new TermQuery(new Term("fileContent",QueryTest));
+//            if (strings[i].startsWith("+")) {
+//                builder.add(termQuery, BooleanClause.Occur.MUST);
+//            } else if (strings[i].startsWith("-")) {
+//                builder.add(termQuery, BooleanClause.Occur.MUST_NOT);
+//            }
 //        }
-//        myCommandLineRunner.reader.close();
-//        System.out.println(outputTests);
+//        BooleanQuery booleanQuery = builder.build();
+//        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,booleanQuery);
+//    }
+//
+//
+//    @Override
+//    public void InspecificDomainSearch() {
+//
+//    }
+//
+//    @Override
+//    public List<OutputTest> WildcardSearch2(String SearchText) throws Exception {
+//        WildcardQuery wildcardQuery = new WildcardQuery(new Term("fileContent", SearchText));
+//        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,wildcardQuery);
+////        return topDocsUtil.getList(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,wildcardQuery);
+//    }
+//
+//    @Override
+//    public List<OutputTest> WildcardSearch(String SearchText) throws Exception{
+//
+//        Analyzer analyzer = new StandardAnalyzer();
+//        QueryParser parser = new QueryParser("fileContent", analyzer);
+//        Query query = parser.parse(SearchText);
+//
+//        long startTime = System.currentTimeMillis();
+//        //开始查询，查询前10条数据，将记录保存在docs中
+//
+//
+//        long endTime = System.currentTimeMillis();
+//        long costTime = endTime - startTime;
+//        System.out.println("查询时间消耗："+costTime);
+//
+//        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
 //    }
 
 
+    //QueryParser是万能搜索！！！！
     public List<OutputTest> testOperator(String SearchText) throws Exception {
 
         Analyzer analyzer = new StandardAnalyzer();
         Query query;
         QueryParser parser = new QueryParser("fileContent", analyzer);
         query = parser.parse(SearchText);
-
         return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
+    }
 
+
+    //如果以~结尾就走模糊查询
+    public List<OutputTest> FuzzySearch(String SearchText)throws Exception{
+        Query query = new FuzzyQuery(new Term("fileContent",SearchText));
+        return topDocsUtil.higtlight(myCommandLineRunner.reader,myCommandLineRunner.indexSearcher,query);
     }
 }

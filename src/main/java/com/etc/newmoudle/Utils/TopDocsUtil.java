@@ -73,6 +73,8 @@ public class TopDocsUtil {
 
         Analyzer analyzer = new StandardAnalyzer();
 
+        System.out.println(query);
+
         TopDocs topDocs = indexSearcher.search(query, 4);
 
         SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<b><font color=red>","</font></b>");
@@ -99,9 +101,11 @@ public class TopDocsUtil {
 
                 OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),highlighterBestFragment);
                 outputTests.add(outputTest);
+                System.out.println(outputTest);
             }
         }
 //        reader.close();
+        System.out.println(outputTests);
         return outputTests;
     }
 

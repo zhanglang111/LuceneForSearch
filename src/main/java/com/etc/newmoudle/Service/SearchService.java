@@ -9,19 +9,22 @@ import java.util.List;
 @Service
 public interface SearchService {
 
-    public List<OutputTest> CommonSearch(String SearchText) throws Exception;
-
-
-    public void InspecificDomainSearch();
-
-    public List<OutputTest> WildcardSearch(String SearchText) throws Exception;
-
-
-    public List<OutputTest> WildcardSearch2(String SearchText) throws Exception;
-
-
-    public List<OutputTest> BooleanSearch(String[] strings) throws Exception;
+//    public List<OutputTest> CommonSearch(String SearchText) throws Exception;
+//
+//
+//    public void InspecificDomainSearch();
+//
+//    public List<OutputTest> WildcardSearch(String SearchText) throws Exception;
+//
+//
+//    public List<OutputTest> WildcardSearch2(String SearchText) throws Exception;
+//
+//
+//    public List<OutputTest> BooleanSearch(String[] strings) throws Exception;
 
     public List<OutputTest> testOperator(String strings) throws Exception;
+
+    //模糊查询
+    public List<OutputTest> FuzzySearch(String SearchText)throws Exception;
 
 }
