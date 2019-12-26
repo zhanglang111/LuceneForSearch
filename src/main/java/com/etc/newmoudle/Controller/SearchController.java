@@ -30,6 +30,8 @@ public class SearchController {
         String subStr = SearchText.trim();
 
         outputTests = searchService.testOperator(subStr);
+
+        model.addAttribute("searchText",SearchText);
         model.addAttribute("outputTests", outputTests);
         return "result";
     }

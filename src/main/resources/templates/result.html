@@ -13,15 +13,16 @@
         <i class="search i"> </i>
         <div class="s-bar">
              <form id='test_form' action='SearchMethods' method='get'>
-                <input name="searchText" class="form-control" type="text"   onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search In A Smart Way';}">
+                <input name="searchText" class="form-control" type="text" id="searchText"  onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search In A Smart Way';}">
                 <input type="submit" value="Search"/>
             </form>
         </div>
     </div>
 
-    <!--//下面就应该刷新-->
-
-    <h1>搜索结果</h1>
+    <h1>
+        <div style="color: #8EDB15 " th:utext="${searchText}">
+            </div>的搜索结果
+    </h1>
         <div th:each="outputTest : ${outputTests}">
             <div th:switch="${outputTest.getFileContent()!=null}">
                 <div th:case="true">
@@ -35,4 +36,7 @@
             </div>
         </div>
     </body>
+    <script th:inline="javascript">
+        $("#searchText").val([[${searchText}]]);
+    </script>
 </html>
