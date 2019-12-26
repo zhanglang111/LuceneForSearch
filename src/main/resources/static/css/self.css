@@ -210,6 +210,12 @@
 	color: #83a4e2;
 }
 .tosearch {
+	 text-align: center;
+	 margin: 2em 0em 0em 0em;
+	 position: relative;
+ }
+
+.open {
 	text-align: center;
 	margin: 2em 0em 0em 0em;
 	position: relative;

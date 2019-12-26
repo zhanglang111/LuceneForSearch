@@ -36,14 +36,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<input type="submit"  value="Search"/>
 	  </form>
 	</div>
+
+	<!--<form action="/upload/douploadRemote" enctype="multipart/form-data" method="post">-->
+		<!--<input type="file" name="blogrollimage" id="getpath1"  txlFillIn="isNotNull" title="链接图片">-->
+	<!--</form>-->
+
 </div>
 
 
-<div class="imageFileInput">
-	<input class="fileInput" type="file" id="" name="" webkitdirectory mozdirectory/>
-</div>
+		<!--<input type="file" id="importFile" />-->
+		<!--<input type="button" onclick="upload()"/>-->
+
+	<!--<div class="imageFileInput">-->
+		<!--<input class="fileInput" type="file" id="getpath1" name="" onclick="upload()" webkitdirectory mozdirectory/>-->
+	<!--</div>-->
+
+	<!--<form class="open" action='Search/SearchMethods' method='post'>-->
+		<!--<input type="file" id="importFile" onclick="upload()"/>-->
+		<!--<input type="text" id="Docname"/>-->
+		<!--<input type="button" onclick="changgeVal()" value="上传">-->
+	<!--</form>-->
 <div>
-
 	<div class="mui-input-group lod-form">
 		<h1 style="text-align: center;font-max-size: large;font-family: Elephant"  >Tips</h1><br/>
 		<ul>
@@ -56,11 +69,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</ul>
 	</div>
 </div>
-
 <div class="copyright">
 	 <p>2015 &copy Flat Search Box All rights reserved | Template by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
 </div>	
 </body>
 <script>
+	//用IE可以，其他不行
+    // function upload() {
+    //     var filename = document.getElementById("getpath1").value;
+	// 	$("#Docname").val("langlang");
+	//
+    // }
+
+	function upload() {
+		var filename = document.getElementById("importFile").value;
+		// 这时的filename不是 importFile 框中的值
+		alert(filename);
+	}
+
+    // function changgeVal() {
+    //     $("#Docname").val("langlang");
+    // }
+
 </script>
 </html>
