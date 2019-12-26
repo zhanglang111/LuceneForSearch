@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
+<link href="../static/css/self.css" th:href="@{/css/self.css}" rel="stylesheet" type="text/css" media="all"/>
+<script src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
+
+<head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>搜索结果</title>
     </head>
     <body>
+
+    <div class="tosearch">
+        <i class="search i"> </i>
+        <div class="s-bar">
+             <form id='test_form' action='SearchMethods' method='get'>
+                <input name="searchText" class="form-control" type="text"   onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search In A Smart Way';}">
+                <input type="submit" value="Search"/>
+            </form>
+        </div>
+    </div>
+
+    <!--//下面就应该刷新-->
+
     <h1>搜索结果</h1>
         <div th:each="outputTest : ${outputTests}">
             <div th:switch="${outputTest.getFileContent()!=null}">
@@ -15,7 +31,6 @@
                     <div th:utext="${outputTest.getFileContent()}"></div>
                 </div>
                 <div th:case="false">
-
                 </div>
             </div>
         </div>

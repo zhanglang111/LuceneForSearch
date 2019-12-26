@@ -8,6 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <title>SmartSearch</title>
 <!-- Custom Theme files -->
+<link href="../static/css/self.css" th:href="@{/css/self.css}" rel="stylesheet" type="text/css" media="all"/>
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
 <script src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
 	<!-- Custom Theme files -->
@@ -22,6 +23,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>
 <!--search start here-->
+
 <div class="search">
 	<i> </i>
 	<div class="s-bar">
@@ -30,8 +32,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<input type="submit"  value="Search"/>
 	  </form>
 	</div>
-	<p>Popular searches: <a href="#">Modern PSD template,</a> <a href="#"> Portfolio design </a></p>
 </div>
+
+<div>
+	<div class="mui-input-group lod-form">
+		<h1 style="text-align: center;font-max-size: large;font-family: Elephant"  >Tips</h1><br/>
+		<ul>
+			<li>1、使用AND、OR、+、-等可实现多词逻辑搜索  例：hello OR world</li>
+			<li><strong>2、在搜索词的最后加上~可以实现模糊搜索</strong>  例：战~</li>
+			<li><strong>3、使用*、?等可实现通配符搜索</strong>  例：美*</li>
+			<li><strong>4、可实现在特定域中搜索</strong>  例：fileName:test1 fileContent:hello</li>
+		</ul>
+	</div>
+</div>
+
 <div class="copyright">
 	 <p>2015 &copy Flat Search Box All rights reserved | Template by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
 </div>	

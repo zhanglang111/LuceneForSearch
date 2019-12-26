@@ -101,11 +101,11 @@ public class TopDocsUtil {
 
                 OutputTest outputTest = new OutputTest(doc.get("filePath"),scoreDoc.score,doc.get("fileName"),highlighterBestFragment);
                 outputTests.add(outputTest);
-                System.out.println(outputTest);
+//                System.out.println(outputTest);
             }
         }
 //        reader.close();
-        System.out.println(outputTests);
+//        System.out.println(outputTests);
         return outputTests;
     }
 

@@ -13,6 +13,13 @@ public class PageController {
         return "indexHtml";
     }
 
+//
+//    @RequestMapping("/index")
+//    //里面并没有传任何的参数
+//    public String index(){
+//        return "indexHtml";
+//    }
+
 
     //搜索结果
     @RequestMapping("/SearchResultDetail")

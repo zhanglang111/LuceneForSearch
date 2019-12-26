@@ -33,4 +33,18 @@ public class SearchController {
         model.addAttribute("outputTests", outputTests);
         return "result";
     }
+
+//    @RequestMapping("/SearchMethodsResult")
+//    public String SearchMethodsResult(Model model,HttpServletRequest request, HttpServletResponse response) throws Exception {
+//
+//        List<OutputTest> outputTests = null;
+//        String SearchText = request.getParameter("searchText");
+//        //去掉左右两端空格
+//        String subStr = SearchText.trim();
+//
+//        outputTests = searchService.testOperator(subStr);
+//        model.addAttribute("outputTests", outputTests);
+//        System.out.println(outputTests);
+//        return "result";
+//    }
 }
