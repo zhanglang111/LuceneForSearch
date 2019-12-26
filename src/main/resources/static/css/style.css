@@ -35,9 +35,16 @@ body {
    font-family: 'Open Sans', sans-serif;
    font-size: 100%;
 }
+
+.logo{
+    text-align: center;
+    margin: 6em 0em 0em 0em;
+    position: relative;
+}
+
 .search {
   text-align: center;
-  margin: 22em 0em 0em 0em;
+  margin: -1em 0em 0em 0em;
   position: relative;
 }
 .s-bar {
@@ -60,7 +67,7 @@ body {
  -webkit-border-radius: 5px 0px 0px 5px;
   -moz-border-radius: 5px 0px 0px 5px;
   -o-border-radius: 5px 0px 0px 5px;
-  background: rgba(255, 255, 1, 4);
+  background: rgba(255, 255, 255, 0.5);
   border: none;
   outline: none;
   -webkit-appearance: none;
@@ -110,7 +117,7 @@ body {
   height: 31px;
   display: block;
   position: absolute;
-  top: 20%;
+  top: 26%;
   left: 32.2%;
   cursor: pointer;
 }
@@ -278,3 +285,29 @@ body {
 }
 }
 /*--meadia quiries end here--*/
+
+
+
+
+/*定义图像以及大小*/
+.imageFileInput{
+    border-radius: 10px;
+    width: 200px;
+    height: 150px;
+    margin: 13em 0em 4.1em 0em;
+    /*padding: 20px;*/
+    /*margin: 40px 600px 800px 600px;*/
+    box-shadow: #9c9c9c 5px 5px 5px;
+    position: absolute;
+    background:url(../images/OpenFilePath.jpg)no-repeat;
+    /*background:; !*这里可以换成图片路径（background-image：../img/....）注意图片路径*!*/
+}
+
+/*定义上传*/
+.fileInput{
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
