@@ -25,8 +25,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Controller
-@RequestMapping("up")
-public class CreateIndexController {
+@RequestMapping("indexFile")
+public class IndexController {
 
     @Autowired
     ConstantInPro constantInPro;
@@ -35,16 +35,14 @@ public class CreateIndexController {
     public String CreateIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
         //跳到另外一个controller
 
+        //修改文件编码格式
+
         String docpath = request.getParameter("docPath");//value是可以修改的
         String fileName = request.getParameter("fileName");
         String filePath = request.getParameter("filePath");
         String fileContent = request.getParameter("fileContent");
 
-
         System.out.println(docpath);
-        System.out.println(fileName);
-        System.out.println(filePath);
-        System.out.println(fileContent);
 
 //        String fileScore = request.getParameter("fileScore");
 
@@ -77,10 +75,12 @@ public class CreateIndexController {
             }
 
            if(filePath!=null){
-               String file_name = f.getName();
-               Field fileNameField = new TextField(fileName, file_name, Field.Store.YES);
-               document.add(fileNameField);
+               String file_path = f.getName();
+               Field filePathField = new TextField(filePath, file_path, Field.Store.YES);
+               document.add(filePathField);
            }
+
+
             String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
             if(fileContent!=null){
                 Field fileContentField = new TextField(fileContent, file_content, Field.Store.YES);
@@ -91,5 +91,12 @@ public class CreateIndexController {
 
         indexWriter.close();
         return "FileUploadSuccess";
+    }
+
+
+    @RequestMapping("/AddIndex")
+    public String AddIndex()throws Exception {
+
+        return "AddIndexSuccess";
     }
 }

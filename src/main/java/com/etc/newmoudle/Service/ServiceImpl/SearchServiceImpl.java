@@ -40,6 +40,9 @@ public class SearchServiceImpl implements SearchService {
 
         Analyzer analyzer = new StandardAnalyzer();
         Query query;
+
+        //这里需要修改，因为这里只是在内容中搜索
+
         QueryParser parser = new QueryParser("fileContent", analyzer);
         query = parser.parse(SearchText);
         return topDocsUtil.higtlight(reader,indexSearcher,query);
