@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>构建索引</title>
+</head>
+<body>
+    <form action="/up/createIndex" method="post">
+        <input name="docPath" type="text" placeholder="检索文件夹路径"><br/>
+        <!--这里列举您需要检索的域，选择域，另外也可以对域进行重命名，传到后端-->
+        选择您需要检索的域<br/>
+        <label><input name="fileName" type="checkbox" value="fileName" />文件名 </label>
+        <label><input name="filePath" type="checkbox" value="filePath" />文件路径 </label>
+        <label><input name="fileContent" type="checkbox" value="fileContent" checked="yes" />文件内容 </label>
+        <label><input name="fileScore" type="checkbox" value="fileScore" />检索评分 </label><br/>
+        <input type="submit" value="开始检索">
+    </form>
+</body>
+</html>

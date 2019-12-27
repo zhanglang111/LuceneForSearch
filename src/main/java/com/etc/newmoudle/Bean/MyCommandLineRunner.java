@@ -32,6 +32,8 @@ public class MyCommandLineRunner implements CommandLineRunner {
         //这里面写东西
         String indexPath = constantInPro.getPath();
 
+        System.out.println(indexPath);
+
         Directory directory = FSDirectory.open(Paths.get(indexPath));
         reader = DirectoryReader.open(directory);
         indexSearcher = new IndexSearcher(reader);

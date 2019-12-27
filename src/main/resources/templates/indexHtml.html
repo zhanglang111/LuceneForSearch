@@ -1,10 +1,6 @@
-<!--Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>SmartSearch</title>
 <!-- Custom Theme files -->
@@ -23,9 +19,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>
 <!--search start here-->
+<!--为什么显示不出来呢-->
 
 <div class="logo">
-	<img src="../static/images/SmartSearch.png">
+	<img  src="../static/images/SmartSearch.png" th:src="@{/images/SmartSearch.png}" >
 </div>
 
 <div class="search">
@@ -36,26 +33,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<input type="submit"  value="Search"/>
 	  </form>
 	</div>
-
-	<!--<form action="/upload/douploadRemote" enctype="multipart/form-data" method="post">-->
-		<!--<input type="file" name="blogrollimage" id="getpath1"  txlFillIn="isNotNull" title="链接图片">-->
-	<!--</form>-->
-
 </div>
 
+<a href="../static/html/Selectfeild.html" th:href="@{http://localhost:8011/createFileIndex}" class="imageFileInput"></a>
 
-		<!--<input type="file" id="importFile" />-->
-		<!--<input type="button" onclick="upload()"/>-->
 
-	<!--<div class="imageFileInput">-->
-		<!--<input class="fileInput" type="file" id="getpath1" name="" onclick="upload()" webkitdirectory mozdirectory/>-->
-	<!--</div>-->
-
-	<!--<form class="open" action='Search/SearchMethods' method='post'>-->
-		<!--<input type="file" id="importFile" onclick="upload()"/>-->
-		<!--<input type="text" id="Docname"/>-->
-		<!--<input type="button" onclick="changgeVal()" value="上传">-->
-	<!--</form>-->
 <div>
 	<div class="mui-input-group lod-form">
 		<h1 style="text-align: center;font-max-size: large;font-family: Elephant"  >Tips</h1><br/>
@@ -74,22 +56,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>	
 </body>
 <script>
-	//用IE可以，其他不行
-    // function upload() {
-    //     var filename = document.getElementById("getpath1").value;
-	// 	$("#Docname").val("langlang");
-	//
-    // }
-
-	function upload() {
-		var filename = document.getElementById("importFile").value;
-		// 这时的filename不是 importFile 框中的值
-		alert(filename);
-	}
-
-    // function changgeVal() {
-    //     $("#Docname").val("langlang");
-    // }
-
 </script>
 </html>
