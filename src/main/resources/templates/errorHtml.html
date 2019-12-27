@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="3;URL=http://localhost:8011/index/">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="text-align: center;margin-top: 10em" >您还没有创建任何索引文件哦，请阅读首页Tips创建索引文件之后再进行搜索</h1>
+<p style="text-indent: 2em; margin-top: 30px; text-align: center">
+    系统将在 <span id="time">5</span> 秒钟后自动跳转至新网址，如果未能跳转，<a href="http://localhost:8011/index" title="点击访问">马上跳转</a>。</p>
+</body>
+<script>
+    delayURL();
+    function delayURL() {
+        var delay = document.getElementById("time").innerHTML;
+        var t = setTimeout("delayURL()", 1000);
+        if (delay > 0) {
+            delay--;
+            document.getElementById("time").innerHTML = delay;
+        } else {
+            clearTimeout(t);
+            window.location.href = "http://localhost:8011/index";
+        }
+    }
+</script>
+</html>

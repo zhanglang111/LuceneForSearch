@@ -20,16 +20,18 @@
     </div>
 
     <h1>
-        <div style="color: #8EDB15 " th:utext="${searchText}">
-            </div>的搜索结果
+        <div>
+            <span style="color: #8EDB15 " th:utext="${searchText}"></span>
+            <span>的搜索结果</span>
+        </div>
     </h1>
         <div th:each="outputTest : ${outputTests}">
             <div th:switch="${outputTest.getFileContent()!=null}">
                 <div th:case="true">
-                    <div th:utext="${outputTest.getFilePath()}"></div>
-                    <div th:utext="${outputTest.getFileScore()}"></div>
-                    <div th:utext="${outputTest.getFileName()}"></div>
-                    <div th:utext="${outputTest.getFileContent()}"></div>
+                    <div><span><strong>文件路径:  </strong></span><span th:utext="${outputTest.getFilePath()}">您未设置文件路径的索引</span></div>
+                    <div><span><strong>索引权重:  </strong></span><span th:utext="${outputTest.getFileScore()}">您未设置文件权重的索引</span></div>
+                    <div><span><strong>文件名:  </strong></span><span th:utext="${outputTest.getFileName()}">您未设置文件名的索引</span></div>
+                    <div><span><strong>文件内容:  </strong></span><span th:utext="${outputTest.getFileContent()}">您未设置文件内同的索引</span></div>
                 </div>
                 <div th:case="false">
                 </div>

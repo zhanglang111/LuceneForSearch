@@ -48,10 +48,10 @@ public class CreateIndexController {
 
 //        String fileScore = request.getParameter("fileScore");
 
-
         Path doc = Paths.get(docpath);
         //获取默认路径
         Directory directory = FSDirectory.open(Paths.get(constantInPro.getPath()));
+
 
 //        SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_6_0_0,true);
 

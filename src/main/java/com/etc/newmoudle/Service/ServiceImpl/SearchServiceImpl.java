@@ -34,8 +34,6 @@ public class SearchServiceImpl implements SearchService {
 
         String indexPath = constantInPro.getPath();
 
-        System.out.println(indexPath);
-
         Directory directory = FSDirectory.open(Paths.get(indexPath));
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(reader);
