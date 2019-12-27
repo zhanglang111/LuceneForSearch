@@ -39,6 +39,13 @@ public class CreateIndexController {
         String fileName = request.getParameter("fileName");
         String filePath = request.getParameter("filePath");
         String fileContent = request.getParameter("fileContent");
+
+
+        System.out.println(docpath);
+        System.out.println(fileName);
+        System.out.println(filePath);
+        System.out.println(fileContent);
+
 //        String fileScore = request.getParameter("fileScore");
 
 
@@ -58,24 +65,31 @@ public class CreateIndexController {
 
         File[] files = file.listFiles();
 
+        //这里需要特殊照顾下
+
         for (File f:files) {
             Document document = new Document();
-            String file_name = f.getName();
-            Field fileNameField = new TextField(fileName, file_name, Field.Store.YES);
-            String path = f.getPath();
-            Field filePathField = new StoredField(filePath,path);
+
+            if(fileName!=null){
+                String file_name = f.getName();
+                Field fileNameField = new TextField(fileName, file_name, Field.Store.YES);
+                document.add(fileNameField);
+            }
+
+           if(filePath!=null){
+               String file_name = f.getName();
+               Field fileNameField = new TextField(fileName, file_name, Field.Store.YES);
+               document.add(fileNameField);
+           }
             String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
-            Field fileContentField = new TextField(fileContent, file_content, Field.Store.YES);
-            document.add(fileNameField);
-            document.add(filePathField);
-            document.add(fileContentField);
+            if(fileContent!=null){
+                Field fileContentField = new TextField(fileContent, file_content, Field.Store.YES);
+                document.add(fileContentField);
+            }
             indexWriter.addDocument(document);
         }
 
         indexWriter.close();
-
         return "FileUploadSuccess";
-
-//        return
     }
 }

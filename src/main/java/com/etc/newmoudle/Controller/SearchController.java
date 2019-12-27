@@ -26,6 +26,9 @@ public class SearchController {
 
         List<OutputTest> outputTests = null;
         String SearchText = request.getParameter("searchText");
+
+        System.out.println(SearchText);
+
         //去掉左右两端空格
         String subStr = SearchText.trim();
 
