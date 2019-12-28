@@ -56,6 +56,8 @@ public class SearchController {
 
         outputTests = searchService.testOperator(subStr);
 
+        System.out.println(outputTests);
+
         model.addAttribute("searchText",SearchText);
         model.addAttribute("outputTests", outputTests);
         return "result";
