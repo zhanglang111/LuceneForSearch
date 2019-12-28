@@ -35,23 +35,10 @@
 	</div>
 </div>
 
-<!--这一段在IE浏览器中是可以看到路径的-->
-<!--<form action="/indexFile/createIndex" method="post">-->
-	<!--<input type="file" id="importFile"  accept=".doc,.docx" multiple="multiple">-->
-	<!--<input name="docPath" type="text" id="filePath" placeholder="检索文件夹路径" ><br/>-->
-	<!--<input type="button" id="getPath"  value="获取路径" onclick="upload()" />-->
-	<!--<input type="submit" id="submit"  value="upload">-->
-<!--</form>-->
-
 <form action="/indexFile/CreateIndex" method="post">
-	<input type="file" name="files" multiple/><br/>
+	<input type="file" name="files" multiple/>
 	<input type="submit" value="Submit"/>
 </form>
-
-
-<!--<a href="../static/html/Selectfeild.html" th:href="@{http://localhost:8011/createFileIndex}" class="imageFileInput"></a>-->
-
-
 
 <div>
 	<div class="mui-input-group lod-form">
@@ -62,8 +49,8 @@
 			<li><strong>3、使用*、?等可实现通配符搜索</strong>  例：美*</li>
 			<li><strong>4、可实现在特定域中搜索</strong>  例：fileName:test1 fileContent:hello</li>
 			<br/>
-			<li>注：1.如果您还没有上传文件作为您的搜索索引文件，请点击左下角的OpenFilePath</li>
-			<li>2.在上传文件时请将文件修改为UTF-8</li>
+			<li>注：1.如果您还没有上传文件作为您的搜索索引文件，请点击左边的浏览按钮</li>
+			<li>2.在上传txt文件时请将文件修改为UTF-8</li>
 			<li>3.本软件配合IE浏览器食用口味更佳</li>
 		</ul>
 	</div>
