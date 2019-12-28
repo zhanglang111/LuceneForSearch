@@ -35,7 +35,22 @@
 	</div>
 </div>
 
-<a href="../static/html/Selectfeild.html" th:href="@{http://localhost:8011/createFileIndex}" class="imageFileInput"></a>
+<!--这一段在IE浏览器中是可以看到路径的-->
+<!--<form action="/indexFile/createIndex" method="post">-->
+	<!--<input type="file" id="importFile"  accept=".doc,.docx" multiple="multiple">-->
+	<!--<input name="docPath" type="text" id="filePath" placeholder="检索文件夹路径" ><br/>-->
+	<!--<input type="button" id="getPath"  value="获取路径" onclick="upload()" />-->
+	<!--<input type="submit" id="submit"  value="upload">-->
+<!--</form>-->
+
+<form action="/indexFile/CreateIndex" method="post">
+	<input type="file" name="files" multiple/><br/>
+	<input type="submit" value="Submit"/>
+</form>
+
+
+<!--<a href="../static/html/Selectfeild.html" th:href="@{http://localhost:8011/createFileIndex}" class="imageFileInput"></a>-->
+
 
 
 <div>
@@ -47,8 +62,9 @@
 			<li><strong>3、使用*、?等可实现通配符搜索</strong>  例：美*</li>
 			<li><strong>4、可实现在特定域中搜索</strong>  例：fileName:test1 fileContent:hello</li>
 			<br/>
-			<li>注：如果您还没有上传文件作为您的搜索索引文件，请点击左下角的OpenFilePath</li>
-			<li>在上传文件时请将文件修改为UTF-8</li>
+			<li>注：1.如果您还没有上传文件作为您的搜索索引文件，请点击左下角的OpenFilePath</li>
+			<li>2.在上传文件时请将文件修改为UTF-8</li>
+			<li>3.本软件配合IE浏览器食用口味更佳</li>
 		</ul>
 	</div>
 </div>
@@ -57,5 +73,25 @@
 </div>	
 </body>
 <script>
+	function upload(){
+        var importFilePath = $("#importFile").val();
+
+        alert(importFilePath);
+
+        $("#filePath").val(importFilePath);
+
+        // $("#submit").style.display = "block";style="display: none"webkitdirectory mozdirectory
+		//
+        // $("#getPath").style.display = "none";style="display: block"
+	}
+
+
+    // //取出上传文件格式的后缀名
+    // var fileAccept = $("#files").val().split(".")[1];//获取上传文件的后缀
+	//
+    // if( fileAccept!="doc" && fileAccept!="docx" ){
+    //     alert("只能上传.doc和.docx的文件！");
+    // }
+
 </script>
 </html>

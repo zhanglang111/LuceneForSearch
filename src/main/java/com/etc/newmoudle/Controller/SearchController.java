@@ -52,6 +52,8 @@ public class SearchController {
         //去掉左右两端空格
         String subStr = SearchText.trim();
 
+
+
         outputTests = searchService.testOperator(subStr);
 
         model.addAttribute("searchText",SearchText);

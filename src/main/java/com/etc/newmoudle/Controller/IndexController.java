@@ -17,10 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -92,6 +95,41 @@ public class IndexController {
         indexWriter.close();
         return "FileUploadSuccess";
     }
+
+
+    @RequestMapping("/CreateIndex")
+    public String CreateIndex(@RequestParam("files") File[] files, HttpServletRequest request) throws  Exception{
+        String rect = (String) request.getAttribute("rect");
+        System.out.println(rect);
+
+
+        Directory directory = FSDirectory.open(Paths.get(constantInPro.getPath()));
+
+
+//        SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_6_0_0,true);
+
+        Analyzer analyzer = new StandardAnalyzer();
+
+        IndexWriter indexWriter = new IndexWriter(directory,new IndexWriterConfig(analyzer));
+
+        for (File f:files) {
+            Document document = new Document();
+            Field fileNameField = new TextField("fileName", f.getName(), Field.Store.YES);
+            Field filePathField = new TextField("filePath", f.getPath(), Field.Store.YES);
+
+            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
+            Field fileContentField = new TextField("fileContent", file_content, Field.Store.YES);
+
+            document.add(fileNameField);
+            document.add(filePathField);
+            document.add(fileContentField);
+
+            indexWriter.addDocument(document);
+        }
+        indexWriter.close();
+        return "FileUploadSuccess";
+    }
+
 
 
     @RequestMapping("/AddIndex")
