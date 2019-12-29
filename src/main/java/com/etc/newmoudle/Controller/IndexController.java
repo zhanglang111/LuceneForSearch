@@ -170,7 +170,7 @@ public class IndexController {
 
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
 
-        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
         IndexWriter indexWriter = new IndexWriter(directory,indexWriterConfig);
 
@@ -192,6 +192,8 @@ public class IndexController {
             while ((temp = bufferedReader.readLine())!=null){
                 file_content += temp;
             }
+
+            System.out.println(file_content);
 
 //            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
             Field fileContentField = new TextField("fileContent", file_content, Field.Store.YES);

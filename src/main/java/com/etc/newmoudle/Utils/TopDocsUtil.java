@@ -26,7 +26,7 @@ public class TopDocsUtil {
 
         Analyzer analyzer = new StandardAnalyzer();
 
-        System.out.println(query);
+      System.out.println(query);
 
         TopDocs topDocs = indexSearcher.search(query, 4);
 
@@ -54,6 +54,7 @@ public class TopDocsUtil {
                 outputTests.add(outputTest);
             }
         }
+        System.out.println("imp中的搜索结果"+outputTests);
         return outputTests;
     }
 }

@@ -36,7 +36,12 @@ public class SearchServiceImpl implements SearchService {
 
         Directory directory = FSDirectory.open(Paths.get(indexPath));
         IndexReader reader = DirectoryReader.open(directory);
+
+        System.out.println("directory:"+directory);
+
         IndexSearcher indexSearcher = new IndexSearcher(reader);
+
+        System.out.println("reader"+reader);
 
         Analyzer analyzer = new StandardAnalyzer();
         Query query;

@@ -36,6 +36,8 @@ public class SearchController {
 
         String indexPath = constantInPro.getPath();
 
+        System.out.println("索引路径："+indexPath);
+
         //进入目录查看是否有文件
 
         File file = new File(indexPath);
@@ -47,16 +49,14 @@ public class SearchController {
         List<OutputTest> outputTests = null;
         String SearchText = request.getParameter("searchText");
 
-        System.out.println(SearchText);
+        System.out.println("搜索关键字："+SearchText);
 
         //去掉左右两端空格
         String subStr = SearchText.trim();
 
-
-
         outputTests = searchService.testOperator(subStr);
 
-        System.out.println(outputTests);
+        System.out.println("搜索结果"+outputTests);
 
         model.addAttribute("searchText",SearchText);
         model.addAttribute("outputTests", outputTests);
