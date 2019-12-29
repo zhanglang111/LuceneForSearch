@@ -107,8 +107,56 @@ public class IndexController {
 //    }
 
 
+//    @RequestMapping("/CreateIndex")
+//    public String CreateIndex(@RequestParam("files") File[] files, HttpServletRequest request) throws  Exception{
+//
+//
+//        System.out.println(files.length);
+//
+//        Directory directory = FSDirectory.open(Paths.get(constantInPro.getPath()));
+//
+//
+////        SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_6_0_0,true);
+//
+//        Analyzer analyzer = new StandardAnalyzer();
+//
+//        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
+//
+//        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+//
+//        IndexWriter indexWriter = new IndexWriter(directory,indexWriterConfig);
+//
+//        for (File f:files) {
+//            System.out.println(f.getPath());
+//            System.out.println(f.getName()+f.toString()+f.getPath()+f.getAbsolutePath()+f.getCanonicalPath()+f.isFile()+f.length());
+//            Document document = new Document();
+//            Field fileNameField = new TextField("fileName", f.getName(), Field.Store.YES);
+//
+//            System.out.println(fileNameField);
+//
+//            Field filePathField = new TextField("filePath", f.getPath(), Field.Store.YES);
+//
+//            System.out.println(filePathField);
+//
+//            //看来还是要保存在服务器，然后再说？
+//
+//            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
+//            Field fileContentField = new TextField("fileContent", file_content, Field.Store.YES);
+//
+//            document.add(fileNameField);
+//            document.add(filePathField);
+//            document.add(fileContentField);
+//
+//            indexWriter.addDocument(document);
+//        }
+//        indexWriter.close();
+//        return "FileUploadSuccess";
+//    }
+
+
+
     @RequestMapping("/CreateIndex")
-    public String CreateIndex(@RequestParam("files") File[] files, HttpServletRequest request) throws  Exception{
+    public String CreateIndex(@RequestParam("files") MultipartFile[] files, HttpServletRequest request) throws  Exception{
         String rect = (String) request.getAttribute("rect");
         System.out.println(rect);
 
@@ -126,12 +174,26 @@ public class IndexController {
 
         IndexWriter indexWriter = new IndexWriter(directory,indexWriterConfig);
 
-        for (File f:files) {
+        for (MultipartFile f:files) {
             Document document = new Document();
             Field fileNameField = new TextField("fileName", f.getName(), Field.Store.YES);
-            Field filePathField = new TextField("filePath", f.getPath(), Field.Store.YES);
+            Field filePathField = new TextField("filePath", f.getOriginalFilename(), Field.Store.YES);
 
-            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
+            InputStream inputStream =  f.getInputStream();
+
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String file_content = "";
+
+            String temp = null;
+
+            while ((temp = bufferedReader.readLine())!=null){
+                file_content += temp;
+            }
+
+//            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
             Field fileContentField = new TextField("fileContent", file_content, Field.Store.YES);
 
             document.add(fileNameField);
@@ -143,7 +205,6 @@ public class IndexController {
         indexWriter.close();
         return "FileUploadSuccess";
     }
-
 
 
 //    @RequestMapping("/AddIndex")
