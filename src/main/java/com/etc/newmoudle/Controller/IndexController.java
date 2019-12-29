@@ -2,6 +2,7 @@ package com.etc.newmoudle.Controller;
 
 
 import com.etc.newmoudle.Bean.ConstantInPro;
+import com.etc.newmoudle.Bean.IndexSearchConfig;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -12,6 +13,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.poi.Version;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -36,67 +38,73 @@ public class IndexController {
     @Autowired
     ConstantInPro constantInPro;
 
-    @RequestMapping(value = "/createIndex",method = RequestMethod.POST)
-    public String CreateIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
-        //跳到另外一个controller
-
-        //修改文件编码格式
-
-        String docpath = request.getParameter("docPath");//value是可以修改的
-        String fileName = request.getParameter("fileName");
-        String filePath = request.getParameter("filePath");
-        String fileContent = request.getParameter("fileContent");
-
-        System.out.println(docpath);
-
-//        String fileScore = request.getParameter("fileScore");
-
-        Path doc = Paths.get(docpath);
-        //获取默认路径
-        Directory directory = FSDirectory.open(Paths.get(constantInPro.getPath()));
-
-
-//        SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_6_0_0,true);
-
-        Analyzer analyzer = new StandardAnalyzer();
-
-        IndexWriter indexWriter = new IndexWriter(directory,new IndexWriterConfig(analyzer));
-
-        //第二步，索引文
-
-        File file = new File(docpath);
-
-        File[] files = file.listFiles();
-
-        //这里需要特殊照顾下
-
-        for (File f:files) {
-            Document document = new Document();
-
-            if(fileName!=null){
-                String file_name = f.getName();
-                Field fileNameField = new TextField(fileName, file_name, Field.Store.YES);
-                document.add(fileNameField);
-            }
-
-           if(filePath!=null){
-               String file_path = f.getName();
-               Field filePathField = new TextField(filePath, file_path, Field.Store.YES);
-               document.add(filePathField);
-           }
-
-
-            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
-            if(fileContent!=null){
-                Field fileContentField = new TextField(fileContent, file_content, Field.Store.YES);
-                document.add(fileContentField);
-            }
-            indexWriter.addDocument(document);
-        }
-
-        indexWriter.close();
-        return "FileUploadSuccess";
-    }
+//    @RequestMapping(value = "/createIndex",method = RequestMethod.POST)
+//    public String CreateIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+//        //跳到另外一个controller
+//
+//        //修改文件编码格式
+//
+//        //
+//        String docpath = request.getParameter("docPath");//value是可以修改的
+//        String fileName = request.getParameter("fileName");
+//        String filePath = request.getParameter("filePath");
+//        String fileContent = request.getParameter("fileContent");
+//
+//        System.out.println(docpath);
+//
+////        String fileScore = request.getParameter("fileScore");
+//
+//        Path doc = Paths.get(docpath);
+//        //获取默认路径
+//        Directory directory = FSDirectory.open(Paths.get(constantInPro.getPath()));
+//
+//
+////        SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_6_0_0,true);
+//
+//        Analyzer analyzer = new StandardAnalyzer();
+//
+//        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
+//
+//        //更新模式
+//        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+//
+//        IndexWriter indexWriter = new IndexWriter(directory,new IndexWriterConfig(analyzer));
+//
+//
+//
+//        //第二步，索引文
+//
+//        File file = new File(docpath);
+//
+//        File[] files = file.listFiles();
+//
+//        for (File f:files) {
+//            Document document = new Document();
+//
+//            if(fileName!=null){
+//                String file_name = f.getName();
+//                Field fileNameField = new TextField(fileName, file_name, Field.Store.YES);
+//                document.add(fileNameField);
+//            }
+//
+//           if(filePath!=null){
+//               String file_path = f.getName();
+//               Field filePathField = new TextField(filePath, file_path, Field.Store.YES);
+//               document.add(filePathField);
+//           }
+//
+//
+//            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
+//            if(fileContent!=null){
+//                Field fileContentField = new TextField(fileContent, file_content, Field.Store.YES);
+//                document.add(fileContentField);
+//            }
+//            indexWriter.addDocument(document);
+//        }
+//
+//        indexWriter.close();
+//        return "FileUploadSuccess";
+//    }
 
 
     @RequestMapping("/CreateIndex")
@@ -112,7 +120,11 @@ public class IndexController {
 
         Analyzer analyzer = new StandardAnalyzer();
 
-        IndexWriter indexWriter = new IndexWriter(directory,new IndexWriterConfig(analyzer));
+        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
+
+        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+
+        IndexWriter indexWriter = new IndexWriter(directory,indexWriterConfig);
 
         for (File f:files) {
             Document document = new Document();
