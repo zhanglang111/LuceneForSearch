@@ -185,15 +185,15 @@ public class IndexController {
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-            String file_content = "";
+            String Result = "";
 
             String temp = null;
 
             while ((temp = bufferedReader.readLine())!=null){
-                file_content += temp;
+                Result += temp;
             }
 
-            System.out.println(file_content);
+            String file_content = new String(Result.getBytes("ISO-8859-1"),"utf-8");
 
 //            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
             Field fileContentField = new TextField("fileContent", file_content, Field.Store.YES);

@@ -28,14 +28,14 @@
 <div class="search">
 	<i> </i>
 	<div class="s-bar">
-	   <form id='test_form' action='http://59.110.237.193:8014/Search/SearchMethods' method='get'>
+	   <form id='test_form' action='/Search/SearchMethods' method='get'>
 		<input name="searchText" class="form-control" type="text"   onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search In A Smart Way';}">
 		<input type="submit"  value="Search"/>
 	  </form>
 	</div>
 </div>
 
-<form enctype="multipart/form-data" action="http://59.110.237.193:8014/indexFile/CreateIndex" method="post">
+<form enctype="multipart/form-data" action="/indexFile/CreateIndex" method="post">
 	<input type="file" name="files" multiple/>
 	<input type="submit" value="Submit"/>
 </form>

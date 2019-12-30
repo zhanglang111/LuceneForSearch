@@ -22,6 +22,8 @@ public class SetCharacterEncodingFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         if (request.getCharacterEncoding() == null) {
             request.setCharacterEncoding("UTF-8");
+
+            System.out.println("所有输出的文件必须是UTF8格式");
         }
         filterChain.doFilter(request, response);
     }
