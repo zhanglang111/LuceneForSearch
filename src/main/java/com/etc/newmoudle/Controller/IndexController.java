@@ -3,6 +3,7 @@ package com.etc.newmoudle.Controller;
 
 import com.etc.newmoudle.Bean.ConstantInPro;
 import com.etc.newmoudle.Bean.IndexSearchConfig;
+import com.etc.newmoudle.Utils.UTF8Util;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -37,6 +38,9 @@ public class IndexController {
 
     @Autowired
     ConstantInPro constantInPro;
+
+    @Autowired
+    UTF8Util utf8Util;
 
 //    @RequestMapping(value = "/createIndex",method = RequestMethod.POST)
 //    public String CreateIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -181,19 +185,21 @@ public class IndexController {
 
             InputStream inputStream =  f.getInputStream();
 
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"GBK");
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-            String Result = "";
+            String file_content = "";
 
             String temp = null;
 
             while ((temp = bufferedReader.readLine())!=null){
-                Result += temp;
+                file_content += temp;
             }
 
-            String file_content = new String(Result.getBytes("ISO-8859-1"),"utf-8");
+//            String file_content = utf8Util.toUTF8(Result);
+
+            System.out.println(file_content);
 
 //            String file_content = org.apache.commons.io.FileUtils.readFileToString(f,"utf-8");
             Field fileContentField = new TextField("fileContent", file_content, Field.Store.YES);

@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>SmartSearch</title>
-<!-- Custom Theme files -->
-<link href="../static/css/self.css" th:href="@{/css/self.css}" rel="stylesheet" type="text/css" media="all"/>
-<link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
-<script src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
+	<title>SmartSearch</title>
 	<!-- Custom Theme files -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<meta name="keywords" content="Flat Search Box Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+	<link href="../static/css/self.css" th:href="@{/css/self.css}" rel="stylesheet" type="text/css" media="all"/>
+	<link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
+	<script src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
+	<!-- Custom Theme files -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Flat Search Box Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 	<!--Google Fonts-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-<!--Google Fonts-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<!--Google Fonts-->
 
 </head>
 <body>
@@ -28,10 +28,10 @@
 <div class="search">
 	<i> </i>
 	<div class="s-bar">
-	   <form id='test_form' action='/Search/SearchMethods' method='get'>
-		<input name="searchText" class="form-control" type="text"   onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search In A Smart Way';}">
-		<input type="submit"  value="Search"/>
-	  </form>
+		<form id='test_form' action='/Search/SearchMethods' method='get'>
+			<input name="searchText" class="form-control" type="text"   onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search In A Smart Way';}">
+			<input type="submit"  value="Search"/>
+		</form>
 	</div>
 </div>
 
@@ -56,15 +56,15 @@
 	</div>
 </div>
 <div class="copyright">
-	 <p>2015 &copy Flat Search Box All rights reserved | Template by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
-</div>	
+	<p>2015 &copy Flat Search Box All rights reserved | Template by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
+</div>
 </body>
 <script>
-	function upload(){
+    function upload(){
         var importFilePath = $("#importFile").val();
         alert(importFilePath);
         $("#filePath").val(importFilePath);
-	}
+    }
 
 </script>
 </html>
